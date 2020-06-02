@@ -22,6 +22,8 @@ library(sf)
 library(tidyverse)
 library(tmap)
 
+#TODO: add user thing and incorporate monthly preds for consistency
+
 plot.path <- "C:/SMW/RAIMBOW/raimbow-local/Plots/Plots_KAF/Multipanel/Mn_3km_Apr-Jun_zoomed.png" #NULL
 
 source("C:/SMW/RAIMBOW/whale-model-prep/Whalepreds_aggregate.R")
