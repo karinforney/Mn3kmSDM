@@ -211,7 +211,6 @@ whalepreds_aggregate <- function(
     dplyr::select(!!x.cols) %>% 
     set_names(substr(names(.), min(x.col.idx), max(x.col.idx)))
   
-  
   date.list <- whalepreds_aggregate_dates(
     names(x.data), seq_along(x.col.idx), aggr.level, range.dates
   )
@@ -268,5 +267,5 @@ whalepreds_aggregate <- function(
   }
   
   ### Return
-  bind_cols(x.other, data.summ, data.summ.se)
+  bind_cols(data.summ, data.summ.se, x.other)
 }
