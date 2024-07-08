@@ -42,3 +42,6 @@ vignettes/*.pdf
 # ignore data and plots folders
 data
 plots
+
+# ignore Rmd knits
+*.html

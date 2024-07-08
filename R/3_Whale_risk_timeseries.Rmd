@@ -44,8 +44,9 @@ file.grid.region <- here("data", "products", "Grid_region.rds")
 file.grid.region.names <- here("data", "products", "Grid_region_names.rds")
 
 file.timeseries <- here("data", "products", "Whale_risk_timeseries.rds")
-path.plots <- if_else(wa.inc, here("plots", "whale-risk-timeseries"), 
-                      here("plots", "whale-risk-timeseries-noWA"))
+path.plots <- here("plots")
+# path.plots <- if_else(wa.inc, here("plots", "whale-risk-timeseries"), 
+#                       here("plots", "whale-risk-timeseries-noWA"))
 ```
 
 ## Data processing
