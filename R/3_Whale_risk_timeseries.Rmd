@@ -3,8 +3,8 @@ title: "Whale risk time series"
 author: "Sam Woodman"
 date: '`r format(Sys.Date(), "%d %B %Y")`'
 output:
-    html_document: default
     pdf_document: default
+    html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -165,11 +165,11 @@ p3 <- raimbow_ggplot(
   y.lab = "VMS pings / km2", wa.flag = wa.inc
 )
 
-p123 <- grid.arrange(p1, p2, p3, nrow = 3)
+p123 <- grid.arrange(p3, p2, p1, nrow = 3)
 
 if (flag.save)
-  ggsave(filename = "Linear_humpback_risk_regional_areanorm.png", p123, path = path.plots, 
-         height = 10, width = 10)
+  ggsave(filename = "Linear_humpback_risk_regional_areanorm.png", p123, 
+         path = path.plots, height = 10, width = 10)
 ```
 
 Finally, we plot the risk, humpback, and fishing densities, calculated using the area of cells with non-NA values for that specific month
@@ -190,9 +190,9 @@ p3 <- raimbow_ggplot(
 
 p123 <- grid.arrange(p1, p2, p3, nrow = 3)
 
-if (flag.save) 
-  ggsave(filename = "Linear_humpback_risk_regional_monthlydens.png", p123, path = path.plots, 
-         height = 10, width = 10)
+# if (flag.save) 
+#   ggsave(filename = "Linear_humpback_risk_regional_monthlydens.png", p123, 
+#          path = path.plots, height = 10, width = 10)
 ```
 
 ## Plot Humpback abundance for paper
@@ -232,7 +232,7 @@ p.mn.dens <- all.df.summ %>%
 
 p.mn.dens
 if (flag.save) 
-  ggsave(filename = "Humpback_monthlydens_.png", p.mn.dens, path = path.plots, 
+  ggsave(filename = "Humpback_monthlydens.png", p.mn.dens, path = path.plots, 
          height = 4, width = 10)
 ```
 
@@ -244,9 +244,9 @@ p.mn.dens.fullts <- raimbow_ggplot(
   theme(legend.position = "left")
 
 p.mn.dens.fullts
-if (flag.save) 
-  ggsave(filename = "Humpback_monthlydens_fullts.png", p.mn.dens.fullts, path = path.plots, 
-         height = 4, width = 12)
+# if (flag.save) 
+#   ggsave(filename = "Humpback_monthlydens_fullts.png", p.mn.dens.fullts, path = path.plots, 
+#          height = 4, width = 12)
 ```
 
 ## Anomalies
@@ -316,9 +316,9 @@ p3 <- raimbow_ggplot(
 
 p123 <- grid.arrange(p1, p2, p3, nrow = 3)
 
-if (flag.save)
-  ggsave(filename = "Anom_linear_humpback_risk_areanorm_ratio01_09-13.png", p123, path = path.plots,
-         height = 10, width = 10)
+# if (flag.save)
+#   ggsave(filename = "Anom_linear_humpback_risk_areanorm_ratio01_09-13.png", p123, 
+#          path = path.plots, height = 10, width = 10)
 ```
 
 ... the anomalies (x - x_mean), ...
@@ -344,9 +344,9 @@ p3 <- raimbow_ggplot(
 
 p123 <- grid.arrange(p1, p2, p3, nrow = 3)
 
-if (flag.save)
-  ggsave(filename = "Anom_linear_humpback_risk_areanorm_anom01_09-13.png", p123, path = path.plots,
-         height = 10, width = 10)
+# if (flag.save)
+#   ggsave(filename = "Anom_linear_humpback_risk_areanorm_anom01_09-13.png", p123, 
+#          path = path.plots, height = 10, width = 10)
 ```
 
 ...and the z scores. Note that we could change 0 values in the denominator to 0.1 so as to avoid divide-by-zero errors, but this is rather arbitrary and thus NA values are kept for the time being
@@ -374,7 +374,7 @@ p3 <- raimbow_ggplot(
 
 p123 <- grid.arrange(p1, p2, p3, nrow = 3)
 
-if (flag.save)
-  ggsave(filename = "Anom_linear_humpback_risk_areanorm_zscore01_09-13.png", p123, path = path.plots,
-         height = 10, width = 10)
+# if (flag.save)
+#   ggsave(filename = "Anom_linear_humpback_risk_areanorm_zscore01_09-13.png", 
+#          p123, path = path.plots, height = 10, width = 10)
 ```
