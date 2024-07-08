@@ -73,7 +73,8 @@ mgmt_plot_bar <- function(x1, x2, v1, x.title, x.ylab) {
 }
 
 # Plot of summed risk for the year without management scenario, and with orig value as dot above
-mgmt_plot_bardot <- function(x1, x2, v1, x.title, x.ylab, wa.flag = TRUE) {
+mgmt_plot_bardot <- function(x1, x2, v1, x.title, x.ylab, 
+                             wa.flag = TRUE, nrow = 2) {
   v1 <- enquo(v1)
   
   if (!wa.flag) x2 <- x2 %>% filter(region != "WA")
@@ -81,8 +82,8 @@ mgmt_plot_bardot <- function(x1, x2, v1, x.title, x.ylab, wa.flag = TRUE) {
   ggplot() +
     geom_col(data = x1, aes(fish_season, !!v1, fill = "mgmt")) +
     geom_point(data = x2, aes(fish_season, !!v1, colour = "orig")) + 
-    facet_wrap(facets = vars(region), nrow = 2, drop = TRUE) +
-    scale_fill_manual(name = "Risk", 
+    facet_wrap(facets = vars(region), nrow = nrow, drop = TRUE) +
+    scale_fill_manual(name = "", #"Risk", 
                       values = c('mgmt' = hue_pal()(1)), 
                       labels = "Management") + 
     scale_color_manual(name = "", 

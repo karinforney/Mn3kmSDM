@@ -3,8 +3,8 @@ title: "Humpback risk - management scenarios"
 author: "Sam Woodman"
 date: '`r format(Sys.Date(), "%d %B %Y")`'
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -20,6 +20,7 @@ The goal of this document is to examine the change in risk under different manag
 library(tidyverse)
 library(scales)
 library(here)
+library(cowplot)
 
 # load("C:/SMW/RAIMBOW/raimbow-local/RDATA_files/Whale_risk_timeseries.Rdata")
 file.timeseries <- here("data", "products", "Whale_risk_timeseries.rds")
@@ -165,9 +166,8 @@ risk.total.apr1 <- mgmt_plot_bardot(
   "Summed risk (total) - closing DC fishery April 1", ylab.total, wa.flag = wa.inc
 )
 risk.total.apr1
-
-if (flag.save) ggsave(filename = here(path.plots, "Mn_DC_close04_bardot_total.png"), 
-                      risk.total.apr1)
+# if (flag.save) ggsave(filename = here(path.plots, "Mn_DC_close04_bardot_total.png"), 
+#                       risk.total.apr1)
 ```
 
 The only fishing season in which this closure had a strong impact on regions in which most confirmed entanglements have happened is 2015-16, when the fishery was closed unitl March and thus 
@@ -270,8 +270,55 @@ risk.total.jan1 <- mgmt_plot_bardot(
   "Summed risk (total) - opening DC fishery Jan 1", ylab.total, wa.flag = wa.inc
 )
 risk.total.jan1
-if (flag.save) ggsave(filename = here(path.plots, "Mn_DC_open01_bardot_total.png"), 
-                      risk.total.jan1)
+# if (flag.save) ggsave(filename = here(path.plots, "Mn_DC_open01_bardot_total.png"), 
+#                       risk.total.jan1)
+```
+
+## Combo plot
+
+In this section, we make a single 2 x 5 panel figure, with all 5 regions for the Jan Opening scenario in the top row, and all 5 regions for the April 1 closure in the bottom row. Because of the structure of the mgmt_plot_bardot function, it is easiest to pull out all of the code into this cell.
+
+```{r combo}
+
+x.combo <- bind_rows(
+  x.open01 %>% mutate(scenario = "open01"), 
+  x.close04 %>% mutate(scenario = "close04")
+)
+
+p1 <- mgmt_plot_bardot(
+  x.open01, x.orig.tmp, risk_total_season, 
+  "Summed risk (total) - opening DC fishery Jan 1", ylab.total, wa.flag = wa.inc,
+  nrow = 1
+)
+
+p2 <- mgmt_plot_bardot(
+  x.close04, x.orig.tmp, risk_total_season,
+  "Summed risk (total) - closing DC fishery April 1", ylab.total, wa.flag = wa.inc,
+  nrow = 1
+)
+
+# Unsure as to why, but get_legend(p1) does not work. So, have to be a little janky
+
+prow <- plot_grid(
+  p1 + theme(legend.position="none") + xlab(NULL), #+ ylab(""),
+  p2 + theme(legend.position="bottom"), #+ ylab(" "), 
+  # align = 'hv',
+  labels = NULL, # hjust = -1,
+  nrow = 2, 
+  rel_heights  = c(1, 1.25)
+)
+
+# final.plot <- ggdraw() +
+#   # draw_label(ylab.total, x = 0.02, y = 0.5, angle = 90, vjust = 0.5, size = 12) +
+#   # draw_plot(prow, 0.035, 0, 0.965)
+#   draw_plot(prow, 0.15, 0, 0.85) +
+#   draw_label(ylab.total, x = 0.1, y = 0.5, angle = 90, vjust = 0.5, size = 12)
+# 
+# final.plot
+
+if (flag.save) ggsave(filename = "Mn_DC_open01_close04_bardot_total.png", 
+                      path = path.plots, prow, width = 7, height = 6)
+
 ```
 
 ## Other
