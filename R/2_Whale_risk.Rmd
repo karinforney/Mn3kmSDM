@@ -2,7 +2,9 @@
 title: "Whale risk - Mn3kmSDM"
 author: "Sam Woodman"
 date: '`r format(Sys.Date(), "%d %B %Y")`'
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
