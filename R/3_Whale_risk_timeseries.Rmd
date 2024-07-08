@@ -34,7 +34,7 @@ library(here)
 
 source(here("R", "functions", "funcs_whale_risk_timeseries.R"))
 
-flag.save <- FALSE
+flag.save <- TRUE
 wa.inc <- TRUE
 # path.local <- "C:/SMW/SMW-Misc/Forney-dynamic-mn/raimbow-local"
 
@@ -43,7 +43,7 @@ file.risk <- here("data", "products", "Whale_risk_long_nona.rds")
 file.grid.region <- here("data", "products", "Grid_region.rds")
 file.grid.region.names <- here("data", "products", "Grid_region_names.rds")
 
-# file.out.timeseries <- file.path(path.local, "RDATA_files/Whale_risk_timeseries.Rdata")
+file.timeseries <- here("data", "products", "Whale_risk_timeseries.rds")
 path.plots <- if_else(wa.inc, here("plots", "whale-risk-timeseries"), 
                       here("plots", "whale-risk-timeseries-noWA"))
 ```
@@ -119,7 +119,8 @@ all.df.summ <- all.df %>%
 # replace_na(list(vms_sum_dens_mon = 0, risk_sum_dens_mon = 0))
 
 
-if (flag.save) save(all.df, all.df.summ, file = file.out.timeseries)
+# if (flag.save) save(all.df, all.df.summ, file = file.out.timeseries)
+if (flag.save) saveRDS(all.df.summ, file = file.timeseries)
 
 all.df.summ %>% distinct(region, area_sum)
 ```
